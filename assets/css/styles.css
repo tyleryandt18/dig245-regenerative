@@ -1,2 +1,19 @@
-
 /* css */
+.title {
+    text-align: center;
+}
+
+.word {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 4.2vw;
+}
+
+#reset {
+    display: none;
+}
+ 
+#myAnswer {
+    text-transform: uppercase;
+    font-size: 4.2vw;
+}
