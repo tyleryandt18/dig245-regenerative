@@ -1,4 +1,5 @@
 /* css */
+
 .title {
     text-align: center;
 }
@@ -9,7 +10,16 @@
     font-size: 4.2vw;
 }
 
-#reset {
+.letters {
+    text-transform: uppercase;
+    font-size: 3vw;
+}
+
+#gameUpdate {
+    font-size: 3vw;
+}
+
+#playAgain {
     display: none;
 }
  

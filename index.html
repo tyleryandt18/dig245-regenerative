@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="row" style="text-align: center;">
-            <div class="col-12">
+            <div class="col-12" style="height: 100px">
                 <span class="word" id="myWord"></span>
             </div>
             <div class="col-12">
@@ -30,8 +30,20 @@
                     <input type="text" pattern="[A-Za-z]+" id="myAnswer" name="myAnswer" maxLength="1" required>
                 </form>
             </div>
+        <div class="row" style="text-align: center;">
+            <div class="col=12" id="gameUpdate" style="height: 100px;">
+                <span></span>
+            </div>
             <div class="col-12">
-                <button id="reset" type="reset" value="Reset">Reset</button>
+                <button id="playAgain" type="reset" value="Reset">Play Again</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <span class="letters" id="myCount">Your Letters: </span>
+            </div>
+            <div class="col-6">
+                <span class="letters" id="cpuCount">Computer's Letters: </span>
             </div>
         </div>
     </div>
