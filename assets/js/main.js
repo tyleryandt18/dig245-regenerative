@@ -13,33 +13,14 @@ Thanks to this github page (too many contributors to list) for the list of words
 https://github.com/dwyl/english-words/tree/master
 */
 
-let wordList = [
-    "audio",
-    "brand",
-    "cute",
-    "trust",
-    "ionic",
-    "place",
-    "flying",
-    "great",
-    "quiche",
-    "quit",
-    "quick",
-    "quack",
-    "quake",
-    "quaking",
-    "boot",
-    "allocate",
-    "brake",
-    "crack",
-    "crank",
-    "lever",
-    "level",
-    "little",
-    "litter"
-];
+fetch('word_list/words_dictionary.json')
+    .then((data) => {
+        console.log(data);
+    })
 
-wordList.sort();
+wordList = ["f"];
+
+/* wordList.sort(); */
 
 function filterList(currWord) {
     let newWords = [];

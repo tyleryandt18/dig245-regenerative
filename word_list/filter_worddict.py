@@ -11,7 +11,7 @@ import json
 NUM_LINES_TO_READ = 50
 
 # Open the JSON file
-with open('words_dictionary.json') as file:
+with open('original_words.json') as file:
     words_dict = json.load(file)
     words_list = list(words_dict.keys())
     filtered_words = []
@@ -47,18 +47,21 @@ with open('word_freq.txt', 'r', encoding='ISO-8859-1') as file:
 
 # the words in the freq list
 freq_words = list(word_freq.keys())
-print(freq_words)
 
-"""
+word_dictionary = {}
 # write the filtered word list back to the .json file
 with open('words_dictionary.json', 'w') as file:
     for word in filtered_words:
 
         # if the word is in the freq_list, then add the frequency to it
         if word in freq_words:
-            json.dump({word: word_freq[word]}, file, indent = 4)
-        
+            word_dictionary[word] = word_freq[word]
+
+        # for right now, let's only use the words that were in the freq list
+        # the goal eventually is to create 3 separate lists for easy, medium, and hard
         # if not, then just add 1
-        else:
-            json.dump({word: "1"}, file, indent = 4)
-"""
+        #else:
+            #word_dictionary[word] = "1"
+    
+    # write the word list back to the json file
+    json.dump(word_dictionary, file, indent=4)
