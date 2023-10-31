@@ -1,15 +1,16 @@
 /* css */
 .main {
     font-family: 'Roboto Condensed', sans-serif;
-    background-color: #5F5F5F;
+    background-color: #500375;
     color: white;
+    text-transform: uppercase;
 }
 
 .title {
     text-align: center;
     font-size: 5em;
     border-bottom: 2px solid white;
-    background: -webkit-linear-gradient(white, #5F5F5F);
+    background: -webkit-linear-gradient(white, #500375);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -36,8 +37,50 @@
 #myAnswer {
     text-transform: uppercase;
     font-size: 4.2vw;
+    color: #500375;
+    width: 100%;
 }
 
 #myTimer {
     font-size: 3em;
+    height: 10vh;
+}
+
+#myWord {
+    height: 20vh;
+    font-size: 4em;
+}
+
+#playAgain {
+    color: #500375;
+    background-color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+    font-size: 3vw;
+    border-radius: 8px;
+    border-color: #500375;
+}
+
+#playAgain:hover {
+    background-color: lightgray;
+}
+
+h3{
+    text-align: right;
+}
+
+#howToPlay:hover {
+    color: lightgray;
+    cursor: pointer;
+}
+
+/* Modal Styling */
+#instructions {
+    color: #500375;
+}
+
+.modal-body {
+    font-size: 2vw;
+    color: black;
+    text-transform: none;
 }

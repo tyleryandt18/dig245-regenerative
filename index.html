@@ -12,6 +12,11 @@
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-- Bootstrap Modals -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body class="main">
 
@@ -21,29 +26,31 @@
             <div class="col-12">
                 <h1 class="title">G H O S T</h1>
                 <br>
-                <br>
+                <!-- Trigger the Modal -->
+                <h3><a id="howToPlay" data-toggle="modal" data-target="#instructions">HOW TO PLAY</a></h3>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="height: 15vh;">
             <div class="col-6">
                 <span class="letters" id="myCount">You: </span>
             </div>
             <div class="col-6">
-                <span class="letters" id="cpuCount">The Computer: </span>
+                <span class="letters" id="cpuCount">Computer: </span>
             </div>
         </div>
         <div class="row" style="text-align: center;">
-            <div class="col-12" style="height: 15vh">
-                <span class="word" id="myWord"></span>
+            <div class="col-12" style="height: 30vh">
                 <p id="myTimer">1:00</p>
+                <span class="word" id="myWord"></span>
             </div>
-            <div class="col-12">
+            <div class="col-2 offset-5"  style="height: 15vh">
                 <form action="#" id="myGame" autocomplete="off">
                     <input type="text" pattern="[A-Za-z]+" id="myAnswer" name="myAnswer" maxLength="1" required>
                 </form>
             </div>
+        </div>
         <div class="row" style="text-align: center;">
-            <div class="col=12" id="gameUpdate" style="height: 15vh;">
+            <div class="col-12" id="gameUpdate" style="height: 15vh;">
                 <span></span>
             </div>
         </div>
@@ -54,8 +61,56 @@
         </div>
     </div>
 
+    <!-- How To Play Modal -->
+    <div class="modal fade" id="instructions" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title">How to Play GHOST</h1>
+                </div>
+                <div class="modal-body" style="font-size: 2vw">
+                  <p>
+                    <ul>
+                        <li>
+                            You and the computer will take turns producing a letter.
+                        </li>
+                        <li>
+                            The object of the game is to make your opponent spell a word.
+                        </li>
+                        <li>
+                            You must be actively spelling a word when you enter a letter, but if you spell a word, then you lose the round.
+                            For example, say that the current word is "COMPOSIT", you could enter "E" for "COMPOSITE", or "I" for "COMPOSITING",
+                            but entering "Z" is not allowed because there are no words that begin with "COMPOSITZ".
+                        </li>
+                        <li>
+                            Once either player spells a word, they lose the round. For example, entering "T" when the current state of the word is "GHOS"
+                            will cause the player to lose the round.
+                        </li>
+                        <li>
+                            The game is structured like the basketball game HORSE. Each round, whoever loses will receive a letter, and once your letters
+                            spell GHOST, you lose.
+                        </li>
+                        <li>
+                            There is a 1 minute timer for you to choose your letter.
+                        </li>
+                        <li>
+                            If the letter you choose creates a word that is not found in our dictionary, then you will have to enter a different letter.
+                        </li>
+                    </ul>
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- load javascript after the page elements render -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="word_list/words_dictionary.js"></script>
+    <script src="assets/js/gameLogic.js"></script>
 </body>
 </html>
