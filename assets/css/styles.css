@@ -1,7 +1,17 @@
 /* css */
+.main {
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #5F5F5F;
+    color: white;
+}
 
 .title {
     text-align: center;
+    font-size: 5em;
+    border-bottom: 2px solid white;
+    background: -webkit-linear-gradient(white, #5F5F5F);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .word {
@@ -26,4 +36,8 @@
 #myAnswer {
     text-transform: uppercase;
     font-size: 4.2vw;
+}
+
+#myTimer {
+    font-size: 3em;
 }

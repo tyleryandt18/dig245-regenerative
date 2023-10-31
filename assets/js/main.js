@@ -13,12 +13,16 @@ Thanks to this github page (too many contributors to list) for the list of words
 https://github.com/dwyl/english-words/tree/master
 */
 
-fetch('word_list/words_dictionary.json')
+const wordListURL = "https://github.com/tyleryandt18/dig245-regenerative/blob/main/word_list/words_dictionary.json"
+fetch(wordListURL)
     .then((data) => {
         console.log(data);
     })
+    .catch(error => {
+        console.error('Error: ', error);
+    })
 
-wordList = ["f"];
+wordList = ["flying"];
 
 /* wordList.sort(); */
 
@@ -46,10 +50,13 @@ function playerChoice(){
             if(seconds > 0){
                 if(seconds === 60){
                     myTimer.textContent = "1:00";
+                    myTimer.style.color = "white";
                 } else if(seconds < 10){
                     myTimer.textContent = "0:0" + String(seconds);
+                    myTimer.style.color = "red";
                 } else {
                     myTimer.textContent = "0:" + String(seconds);
+                    myTimer.style.color = "white";
                 }
                 seconds--;
             } else {
@@ -105,8 +112,8 @@ playAgain.addEventListener("click", () => {
     myWord.textContent = '';
     myGame.myAnswer.value = '';
     gameUpdate.textContent = '';
-    myCount.textContent = "Your Letters: ";
-    cpuCount.textContent = "Computer's Letters: ";
+    myCount.textContent = "You: ";
+    cpuCount.textContent = "The Computer: ";
     myScore = 0;
     cpuScore = 0;
     playAgain.style.display = "none";

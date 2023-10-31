@@ -60,8 +60,8 @@ with open('words_dictionary.json', 'w') as file:
         # for right now, let's only use the words that were in the freq list
         # the goal eventually is to create 3 separate lists for easy, medium, and hard
         # if not, then just add 1
-        #else:
-            #word_dictionary[word] = "1"
+        else:
+            word_dictionary[word] = "1"
     
     # write the word list back to the json file
     json.dump(word_dictionary, file, indent=4)

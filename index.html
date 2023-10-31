@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>G H O S T</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
-<body>
+<body class="main">
 
     <!-- visible content goes here -->
     <div class="container">
@@ -19,6 +22,14 @@
                 <h1 class="title">G H O S T</h1>
                 <br>
                 <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <span class="letters" id="myCount">You: </span>
+            </div>
+            <div class="col-6">
+                <span class="letters" id="cpuCount">The Computer: </span>
             </div>
         </div>
         <div class="row" style="text-align: center;">
@@ -39,14 +50,6 @@
         <div class="row" style="display: flex; justify-content: center; align-items: center;">
             <div class="col-12" style="height: 5vh;">
                 <button id="playAgain" type="reset" value="Reset">Play Again</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <span class="letters" id="myCount">Your Letters: </span>
-            </div>
-            <div class="col-6">
-                <span class="letters" id="cpuCount">Computer's Letters: </span>
             </div>
         </div>
     </div>
