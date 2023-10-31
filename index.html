@@ -28,19 +28,35 @@
                 <br>
                 <!-- Trigger the Modal -->
                 <h3><a id="howToPlay" data-toggle="modal" data-target="#instructions">HOW TO PLAY</a></h3>
+                <br>
+                <br>
             </div>
         </div>
-        <div class="row" style="height: 15vh;">
-            <div class="col-6">
-                <span class="letters" id="myCount">You: </span>
+        <div class="row">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-3" style="text-align: right;">
+                        <span class="letters">You: </span>
+                    </div>
+                    <div class="col-9" style="text-align: left;">
+                        <span class="letters" id="myCount"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3" style="text-align: right;">
+                        <span class="letters">Computer: </span>
+                    </div>
+                    <div class="col-9" style="text-align:left;">
+                        <span class="letters" id="cpuCount"></span>
+                    </div>
+                </div>
             </div>
-            <div class="col-6">
-                <span class="letters" id="cpuCount">Computer: </span>
+            <div class="col-4" style="text-align: center;">
+                <p id="myTimer">1:00</p>
             </div>
         </div>
         <div class="row" style="text-align: center;">
-            <div class="col-12" style="height: 30vh">
-                <p id="myTimer">1:00</p>
+            <div class="col-12" style="height: 20vh">
                 <span class="word" id="myWord"></span>
             </div>
             <div class="col-2 offset-5"  style="height: 15vh">
