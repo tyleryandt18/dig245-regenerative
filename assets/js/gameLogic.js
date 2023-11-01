@@ -89,7 +89,7 @@ function updateScore(flag) {
 
 let hardMode = false;
 let buttonClicked = false;
-let hardModeButton = document.getElementById("hard-mode");
+/*let hardModeButton = document.getElementById("hard-mode");
 let title = document.getElementsByClassName("title");
 console.log(title);
 
@@ -107,6 +107,7 @@ hardModeButton.addEventListener("click", () => {
         buttonClicked = true;
     }
 });
+*/
 
 function computerChoice(newWords, currWord) {
     let randomNum = Math.floor(Math.random() * newWords.length);
