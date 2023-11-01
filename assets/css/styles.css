@@ -23,11 +23,11 @@
 
 .letters {
     text-transform: uppercase;
-    font-size: 3vw;
+    font-size: 2em;
 }
 
 #gameUpdate {
-    font-size: 3vw;
+    font-size: 3em;
 }
 
 #playAgain {
@@ -36,13 +36,13 @@
  
 #myAnswer {
     text-transform: uppercase;
-    font-size: 4.2vw;
+    font-size: 4em;
     color: #500375;
     width: 100%;
 }
 
 #myTimer {
-    font-size: 3em;
+    font-size: 4em;
     height: 10vh;
 }
 
@@ -56,7 +56,7 @@
     background-color: white;
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
-    font-size: 3vw;
+    font-size: 2em;
     border-radius: 8px;
     border-color: #500375;
 }
@@ -67,6 +67,7 @@
 
 h3{
     text-align: right;
+    font-size: 2em;
 }
 
 #howToPlay:hover {
@@ -83,4 +84,10 @@ h3{
     font-size: 2vw;
     color: black;
     text-transform: none;
+}
+
+/* Hard Mode Button */
+#hard-mode {
+    font-size: 2vw;
+    color: red;
 }

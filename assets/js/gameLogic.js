@@ -87,8 +87,42 @@ function updateScore(flag) {
     }
 }
 
+let hardMode = false;
+let buttonClicked = false;
+let hardModeButton = document.getElementById("hard-mode");
+let title = document.getElementsByClassName("title");
+console.log(title);
+
+hardModeButton.addEventListener("click", () => {
+    if(buttonClicked){
+        document.body.style.backgroundColor = "#500375";
+        
+        hardMode = false;
+        buttonClicked = false;
+    } else {
+        document.body.style.backgroundColor = "black";
+        title[0].style.background = "-webkit-linear-gradient(red, black);"
+
+        hardMode = true;
+        buttonClicked = true;
+    }
+});
+
 function computerChoice(newWords, currWord) {
-    let cpuWord = newWords[Math.floor(Math.random() * newWords.length)];
+    let randomNum = Math.floor(Math.random() * newWords.length);
+    let cpuWord = newWords[randomNum];
+    if(hardMode){
+        let count = 0;
+        while(cpuWord.length % 2 !== 0){
+            console.log(cpuWord);
+            count++;
+            if(count === newWords.length){
+                let cpuLetter = cpuWord[currWord.length];
+                return[cpuLetter, cpuWord];
+            }
+            cpuWord = newWords[randomNum + count];
+        }
+    }
     let cpuLetter = cpuWord[currWord.length]; /* No -1 to adjust for grabbing the next letter */
     /* TO-DO: change so the computer tries to spell a word that won't cause it to lose */
     return [cpuLetter, cpuWord];
@@ -98,7 +132,7 @@ let myGame = document.querySelector("#myGame");
 let myWord = document.getElementById("myWord");
 let gameUpdate = document.getElementById("gameUpdate");
 let playAgain = document.getElementById("playAgain");
-let computerWord = '';
+let computerWord;
 
 playAgain.addEventListener("click", () => {
     myWord.textContent = '';
@@ -107,6 +141,7 @@ playAgain.addEventListener("click", () => {
     myCount.textContent = '';
     cpuCount.textContent = '';
     computerWord = '';
+    displayWord = '';
     myScore = 0;
     cpuScore = 0;
     playAgain.style.display = "none";
@@ -115,21 +150,22 @@ playAgain.addEventListener("click", () => {
 myGame.addEventListener("submit", (event) => {
     event.preventDefault();
 
+    this.myAnswer.disabled = true;
+    let currWord = myWord.textContent + this.myAnswer.value;
+    gameUpdate.textContent = '';
+
     /* clear the timer */
     timerStarted = false;
     seconds = 60;
     myTimer.textContent = "1:00";
     clearInterval(timer);
 
-    this.myAnswer.disabled = true;
-    let currWord = myWord.textContent + this.myAnswer.value;
-    gameUpdate.textContent = '';
-
     setTimeout(() => {
         this.myAnswer.disabled = false;
         if(wordList.includes(currWord)){
             gameUpdate.textContent = "You lost the round! You spelled " + currWord;
             currWord = '';
+            restartTimer = false;
             if(updateScore(0)){
                 gameUpdate.textContent = "GAME OVER! YOU LOST!";
                 playAgain.style.display = "initial";
@@ -141,7 +177,6 @@ myGame.addEventListener("submit", (event) => {
                 currWord = myWord.textContent;
             } else {
                 choice = computerChoice(newWords, currWord);
-                console.log(choice);
                 computerWord = choice[1];
                 currWord = currWord + choice[0];
                     if(wordList.includes(currWord)){
@@ -152,7 +187,7 @@ myGame.addEventListener("submit", (event) => {
                             playAgain.style.display = "initial";
                         }
                     } else {
-                        /* 1 minute timer for the player to enter a letter */
+                        /* One minute timer */
                         playerChoice();
                     }
                 }
@@ -164,4 +199,5 @@ myGame.addEventListener("submit", (event) => {
 
     /* Reset the answer box */
     this.myAnswer.value = '';
+
 });
