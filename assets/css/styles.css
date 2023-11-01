@@ -15,6 +15,15 @@
     -webkit-text-fill-color: transparent;
 }
 
+.title-hard {
+    text-align: center;
+    font-size: 5em;
+    border-bottom: 2px solid red;
+    background: -webkit-linear-gradient(red, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .word {
     text-align: center;
     text-transform: uppercase;

@@ -27,16 +27,52 @@ function filterList(currWord) {
 
     return newWords;
 }
+let hardMode = false;
+let buttonClicked = false;
+let hardModeButton = document.getElementById("hard-mode");
+let title = document.getElementById("title");
+let myAnswer = document.getElementById("myAnswer");
 
-/* 1 minute timer for the player's choice */
+hardModeButton.addEventListener("click", () => {
+    if(buttonClicked){
+        document.body.style.backgroundColor = "#500375";
+        title.classList.remove("title-hard");
+        title.classList.add("title");
+        hardModeButton.textContent = "Hard Mode";
+        hardModeButton.style.color = "red";
+        myAnswer.style.color = "#500375";
+
+        hardMode = false;
+        buttonClicked = false;
+
+        seconds = 60;
+        myTimer.textContent = "1:00";
+    } else {
+        document.body.style.backgroundColor = "black";
+        title.classList.remove("title");
+        title.classList.add("title-hard");
+        hardModeButton.textContent = "Easy Mode";
+        hardModeButton.style.color = "#500375";
+        myAnswer.style.color = "red";
+
+        hardMode = true;
+        buttonClicked = true;
+
+        seconds = 30;
+        myTimer.textContent = "0:30";
+    }
+});
+
+/* timer for the player's choice */
 let myTimer = document.getElementById("myTimer");
-let seconds = 60;
+let seconds;
 let timerStarted = false;
 let timer;
 
 function playerChoice(){
     if(timerStarted === false){
         timerStarted = true;
+        hardModeButton.disabled = "true";
         timer = setInterval(function(){
             if(seconds > 0){
                 if(seconds === 60){
@@ -53,6 +89,7 @@ function playerChoice(){
             } else {
                 clearInterval(timer);
                 timerStarted = false;
+                hardModeButton.disabled = "false";
                 seconds = 60;
                 myTimer.textContent = "0:00";
                 gameUpdate.textContent = "The timer ran out, you lost the round! The computer was spelling " + computerWord;
@@ -87,28 +124,6 @@ function updateScore(flag) {
     }
 }
 
-let hardMode = false;
-let buttonClicked = false;
-/*let hardModeButton = document.getElementById("hard-mode");
-let title = document.getElementsByClassName("title");
-console.log(title);
-
-hardModeButton.addEventListener("click", () => {
-    if(buttonClicked){
-        document.body.style.backgroundColor = "#500375";
-        
-        hardMode = false;
-        buttonClicked = false;
-    } else {
-        document.body.style.backgroundColor = "black";
-        title[0].style.background = "-webkit-linear-gradient(red, black);"
-
-        hardMode = true;
-        buttonClicked = true;
-    }
-});
-*/
-
 function computerChoice(newWords, currWord) {
     let randomNum = Math.floor(Math.random() * newWords.length);
     let cpuWord = newWords[randomNum];
@@ -127,6 +142,14 @@ function computerChoice(newWords, currWord) {
     let cpuLetter = cpuWord[currWord.length]; /* No -1 to adjust for grabbing the next letter */
     /* TO-DO: change so the computer tries to spell a word that won't cause it to lose */
     return [cpuLetter, cpuWord];
+}
+
+function updateRound(player) {
+    console.log("f");
+}
+
+function updateGame(player) {
+    console.log("f");
 }
 
 let myGame = document.querySelector("#myGame");
@@ -157,8 +180,13 @@ myGame.addEventListener("submit", (event) => {
 
     /* clear the timer */
     timerStarted = false;
-    seconds = 60;
-    myTimer.textContent = "1:00";
+    if(hardMode){
+        seconds = 30;
+        myTimer.textContent = "0:30";
+    } else {
+        seconds = 60;
+        myTimer.textContent = "1:00";
+    }
     clearInterval(timer);
 
     setTimeout(() => {
