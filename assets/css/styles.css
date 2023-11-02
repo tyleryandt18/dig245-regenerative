@@ -10,6 +10,7 @@
     text-align: center;
     font-size: 5em;
     border-bottom: 2px solid white;
+    padding-bottom: 20px;
     background: -webkit-linear-gradient(white, #500375);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -19,6 +20,7 @@
     text-align: center;
     font-size: 5em;
     border-bottom: 2px solid red;
+    padding-bottom: 20px;
     background: -webkit-linear-gradient(red, black);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -36,11 +38,7 @@
 }
 
 #gameUpdate {
-    font-size: 3em;
-}
-
-#playAgain {
-    display: none;
+    font-size: 1.5em;
 }
  
 #myAnswer {
@@ -65,7 +63,7 @@
     background-color: white;
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
-    font-size: 2em;
+    font-size: 1.3em;
     border-radius: 8px;
     border-color: #500375;
 }
@@ -96,7 +94,46 @@ h3{
 }
 
 /* Hard Mode Button */
-#hard-mode {
-    font-size: 2em;
+#hardMode {
+    font-size: 1.3em;
     color: red;
+    text-transform: uppercase;
+    border-radius: 8px;
+    border-color: #500375;
+}
+
+#hardMode:hover {
+    background-color: lightgray;
+}
+
+/* underline the letters that the computer played */
+.underline {
+    text-decoration: underline;
+}
+
+/* Media Queries */
+/* Medium */
+@media (min-width: 768px) {
+    #gameUpdate {
+        font-size: 2em;
+    }
+    #playAgain {
+        font-size: 1.5em;
+    }
+    #hardMode {
+        font-size: 1.5em;
+    }
+}
+
+/* Large and Beyond */
+@media (min-width: 992px) {
+    #gameUpdate {
+        font-size: 3em;
+    }
+    #playAgain {
+        font-size: 2em;
+    }
+    #hardMode {
+        font-size: 2em;
+    }
 }

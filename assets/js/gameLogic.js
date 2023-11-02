@@ -26,10 +26,18 @@ function filterList(currWord) {
     return newWords;
 }
 
+/* Differentiate between who played what letter */
+function updateLetterStyles(myContent) {
+    console.log(myContent);
+    myContent = '<span class="underline">' + myContent + '</span>';
+    console.log(myContent);
+    return myContent;
+}
+
 /* Hard Mode Functionality */
 let hardMode = false;
 let buttonClicked = false;
-let hardModeButton = document.getElementById("hard-mode");
+let hardModeButton = document.getElementById("hardMode");
 let title = document.getElementById("title");
 let myAnswer = document.getElementById("myAnswer");
 
@@ -86,24 +94,22 @@ function playerChoice(){
             if(seconds > 0){
                 if(seconds === 60){
                     myTimer.textContent = "1:00";
-                    myTimer.style.color = "white";
                 } else if(seconds < 10){
                     myTimer.textContent = "0:0" + String(seconds);
                     myTimer.style.color = "red";
                 } else {
                     myTimer.textContent = "0:" + String(seconds);
-                    myTimer.style.color = "white";
                 }
                 seconds--;
             } else {
                 clearInterval(timer);
                 timerStarted = false;
+                hardModeButton.disabled = false;
                 seconds = 60;
                 myTimer.textContent = "0:00";
                 gameUpdate.textContent = "The timer ran out, you lost the round! The computer was spelling " + computerWord;
                 if(updateScore(0)){
                     gameUpdate.textContent = "GAME OVER! YOU LOST!";
-                    playAgain.style.display = "initial";
                 }
             }
         }, 1000)
@@ -149,12 +155,18 @@ function computerChoice(newWords, currWord) {
     return [cpuLetter, cpuWord];
 }
 
-function updateRound(player) {
-    console.log("f");
-}
-
-function updateGame(player) {
-    console.log("f");
+function resetTimer() {
+    /* clear the timer */
+    timerStarted = false;
+    myTimer.style.color = "white";
+    if(hardMode){
+        seconds = 30;
+        myTimer.textContent = "0:30";
+    } else {
+        seconds = 60;
+        myTimer.textContent = "1:00";
+    }
+    clearInterval(timer);
 }
 
 let myGame = document.querySelector("#myGame");
@@ -173,8 +185,48 @@ playAgain.addEventListener("click", () => {
     displayWord = '';
     myScore = 0;
     cpuScore = 0;
-    playAgain.style.display = "none";
+    resetTimer();
+    hardModeButton.disabled = false;
 })
+
+function gameLogic(currWord, myAnswer) {
+    myAnswer.disabled = false;
+    if(wordList.includes(currWord)){
+        hardModeButton.disabled = false;
+        gameUpdate.textContent = "You lost the round! You spelled " + currWord;
+        currWord = '';
+        resetTimer();
+        if(updateScore(0)){
+            gameUpdate.textContent = "GAME OVER! YOU LOST!";
+        }
+    } else {
+        let newWords = filterList(currWord);
+        if(newWords.length == 0){
+            gameUpdate.textContent = "The word you are spelling is not in the dictionary. Try again."
+            myWord.textContent = myWord.textContent.slice(0, -1);
+            currWord = myWord.textContent;
+        } else {
+            resetTimer();
+            choice = computerChoice(newWords, currWord);
+            computerWord = choice[1];
+            currWord = currWord + choice[0];
+                if(wordList.includes(currWord)){
+                    hardModeButton.disabled = false;
+                    gameUpdate.textContent = "You won the round! The computer spelled " + currWord;
+                    currWord = '';
+                    if(updateScore(1)) {
+                        currWord = "GAME OVER! YOU WON!";
+                    }
+                } else {
+                    /* One minute timer */
+                    playerChoice();
+                    myWord.innerHTML = updateLetterStyles(myWord.innerHTML);
+                }
+            }
+
+        }
+    myWord.textContent = currWord;
+};
 
 myGame.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -184,55 +236,8 @@ myGame.addEventListener("submit", (event) => {
     myWord.textContent = myWord.textContent + this.myAnswer.value;
     gameUpdate.textContent = '';
 
-    /* clear the timer */
-    timerStarted = false;
-    if(hardMode){
-        seconds = 30;
-        myTimer.textContent = "0:30";
-    } else {
-        seconds = 60;
-        myTimer.textContent = "1:00";
-    }
-    clearInterval(timer);
-
     setTimeout(() => {
-        this.myAnswer.disabled = false;
-        if(wordList.includes(currWord)){
-            hardModeButton.disabled = false;
-            gameUpdate.textContent = "You lost the round! You spelled " + currWord;
-            currWord = '';
-            restartTimer = false;
-            if(updateScore(0)){
-                gameUpdate.textContent = "GAME OVER! YOU LOST!";
-                playAgain.style.display = "initial";
-            }
-        } else {
-            let newWords = filterList(currWord);
-            if(newWords.length == 0){
-                gameUpdate.textContent = "The word you are spelling is not in the dictionary. Try again."
-                myWord.textContent = myWord.textContent.slice(0, -1);
-                currWord = myWord.textContent;
-            } else {
-                choice = computerChoice(newWords, currWord);
-                computerWord = choice[1];
-                currWord = currWord + choice[0];
-                    if(wordList.includes(currWord)){
-                        hardModeButton.disabled = false;
-                        gameUpdate.textContent = "You won the round! The computer spelled " + currWord;
-                        currWord = '';
-                        if(updateScore(1)) {
-                            currWord = "GAME OVER! YOU WON!";
-                            playAgain.style.display = "initial";
-                        }
-                    } else {
-                        /* One minute timer */
-                        playerChoice();
-                    }
-                }
-    
-            }
-        myWord.textContent = currWord;
-
+        gameLogic(currWord, this.myAnswer);
     }, 1000);
 
     /* Reset the answer box */
