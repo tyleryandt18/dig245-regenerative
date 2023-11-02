@@ -27,11 +27,9 @@ function filterList(currWord) {
 }
 
 /* Differentiate between who played what letter */
-function updateLetterStyles(myContent) {
-    console.log(myContent);
-    myContent = '<span class="underline">' + myContent + '</span>';
-    console.log(myContent);
-    return myContent;
+function updateLetterStyles(myLetter) {
+    myLetter = '<span class="underline">' + myLetter + '</span>';
+    return myLetter;
 }
 
 /* Hard Mode Functionality */
@@ -48,6 +46,7 @@ function hardModeOff() {
     hardModeButton.textContent = "Hard Mode";
     hardModeButton.style.color = "red";
     myAnswer.style.color = "#500375";
+    playAgain.style.color = "#500375";
 
     hardMode = false;
     buttonClicked = false;
@@ -63,6 +62,7 @@ function hardModeOn() {
     hardModeButton.textContent = "Easy Mode";
     hardModeButton.style.color = "#500375";
     myAnswer.style.color = "red";
+    playAgain.style.color = "red";
 
     hardMode = true;
     buttonClicked = true;
@@ -220,12 +220,11 @@ function gameLogic(currWord, myAnswer) {
                 } else {
                     /* One minute timer */
                     playerChoice();
-                    myWord.innerHTML = updateLetterStyles(myWord.innerHTML);
                 }
             }
 
         }
-    myWord.textContent = currWord;
+     myWord.innerHTML = currWord;
 };
 
 myGame.addEventListener("submit", (event) => {
@@ -233,7 +232,7 @@ myGame.addEventListener("submit", (event) => {
 
     this.myAnswer.disabled = true;
     let currWord = myWord.textContent + this.myAnswer.value;
-    myWord.textContent = myWord.textContent + this.myAnswer.value;
+    myWord.innerHTML = myWord.textContent + this.myAnswer.value;
     gameUpdate.textContent = '';
 
     setTimeout(() => {
