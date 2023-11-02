@@ -2,7 +2,6 @@
 
 /* 
 TO-DOs:
-- Bootstrap danger class for warning message when word isn't in dictionary
 - get a list of all possible words, and sort words by popularity, make the computer
 choose the most popular word as well
 - save local state, so if I close a tab, it still comes back to the same state
@@ -13,9 +12,8 @@ Thanks to this github page (too many contributors to list) for the list of words
 https://github.com/dwyl/english-words/tree/master
 */
 
+/* Word List Functionality */
 let wordList = Object.keys(words);
-
-/* wordList.sort(); */
 
 function filterList(currWord) {
     let newWords = [];
@@ -27,41 +25,52 @@ function filterList(currWord) {
 
     return newWords;
 }
+
+/* Hard Mode Functionality */
 let hardMode = false;
 let buttonClicked = false;
 let hardModeButton = document.getElementById("hard-mode");
 let title = document.getElementById("title");
 let myAnswer = document.getElementById("myAnswer");
 
+function hardModeOff() {
+    document.body.style.backgroundColor = "#500375";
+    title.classList.remove("title-hard");
+    title.classList.add("title");
+    hardModeButton.textContent = "Hard Mode";
+    hardModeButton.style.color = "red";
+    myAnswer.style.color = "#500375";
+
+    hardMode = false;
+    buttonClicked = false;
+
+    seconds = 60;
+    myTimer.textContent = "1:00";
+}
+
+function hardModeOn() {
+    document.body.style.backgroundColor = "black";
+    title.classList.remove("title");
+    title.classList.add("title-hard");
+    hardModeButton.textContent = "Easy Mode";
+    hardModeButton.style.color = "#500375";
+    myAnswer.style.color = "red";
+
+    hardMode = true;
+    buttonClicked = true;
+
+    seconds = 30;
+    myTimer.textContent = "0:30";
+}
+
 hardModeButton.addEventListener("click", () => {
     if(buttonClicked){
-        document.body.style.backgroundColor = "#500375";
-        title.classList.remove("title-hard");
-        title.classList.add("title");
-        hardModeButton.textContent = "Hard Mode";
-        hardModeButton.style.color = "red";
-        myAnswer.style.color = "#500375";
-
-        hardMode = false;
-        buttonClicked = false;
-
-        seconds = 60;
-        myTimer.textContent = "1:00";
+        hardModeOff();
     } else {
-        document.body.style.backgroundColor = "black";
-        title.classList.remove("title");
-        title.classList.add("title-hard");
-        hardModeButton.textContent = "Easy Mode";
-        hardModeButton.style.color = "#500375";
-        myAnswer.style.color = "red";
-
-        hardMode = true;
-        buttonClicked = true;
-
-        seconds = 30;
-        myTimer.textContent = "0:30";
+        hardModeOn();
     }
 });
+
 
 /* timer for the player's choice */
 let myTimer = document.getElementById("myTimer");
@@ -72,7 +81,7 @@ let timer;
 function playerChoice(){
     if(timerStarted === false){
         timerStarted = true;
-        hardModeButton.disabled = "true";
+        hardModeButton.disabled = true;
         timer = setInterval(function(){
             if(seconds > 0){
                 if(seconds === 60){
@@ -89,7 +98,6 @@ function playerChoice(){
             } else {
                 clearInterval(timer);
                 timerStarted = false;
-                hardModeButton.disabled = "false";
                 seconds = 60;
                 myTimer.textContent = "0:00";
                 gameUpdate.textContent = "The timer ran out, you lost the round! The computer was spelling " + computerWord;
@@ -125,22 +133,19 @@ function updateScore(flag) {
 }
 
 function computerChoice(newWords, currWord) {
-    let randomNum = Math.floor(Math.random() * newWords.length);
-    let cpuWord = newWords[randomNum];
+    let cpuWord = newWords[Math.floor(Math.random() * newWords.length)];
+    let cpuLetter = cpuWord[currWord.length];
     if(hardMode){
         let count = 0;
-        while(cpuWord.length % 2 !== 0){
-            console.log(cpuWord);
-            count++;
+        while(cpuWord.length % 2 === 0 || newWords.includes(currWord + cpuLetter)){
             if(count === newWords.length){
-                let cpuLetter = cpuWord[currWord.length];
                 return[cpuLetter, cpuWord];
             }
-            cpuWord = newWords[randomNum + count];
+            count++;
+            cpuWord = newWords[Math.floor(Math.random() * newWords.length)];
+            cpuLetter = cpuWord[currWord.length];
         }
     }
-    let cpuLetter = cpuWord[currWord.length]; /* No -1 to adjust for grabbing the next letter */
-    /* TO-DO: change so the computer tries to spell a word that won't cause it to lose */
     return [cpuLetter, cpuWord];
 }
 
@@ -176,6 +181,7 @@ myGame.addEventListener("submit", (event) => {
 
     this.myAnswer.disabled = true;
     let currWord = myWord.textContent + this.myAnswer.value;
+    myWord.textContent = myWord.textContent + this.myAnswer.value;
     gameUpdate.textContent = '';
 
     /* clear the timer */
@@ -192,6 +198,7 @@ myGame.addEventListener("submit", (event) => {
     setTimeout(() => {
         this.myAnswer.disabled = false;
         if(wordList.includes(currWord)){
+            hardModeButton.disabled = false;
             gameUpdate.textContent = "You lost the round! You spelled " + currWord;
             currWord = '';
             restartTimer = false;
@@ -203,12 +210,14 @@ myGame.addEventListener("submit", (event) => {
             let newWords = filterList(currWord);
             if(newWords.length == 0){
                 gameUpdate.textContent = "The word you are spelling is not in the dictionary. Try again."
+                myWord.textContent = myWord.textContent.slice(0, -1);
                 currWord = myWord.textContent;
             } else {
                 choice = computerChoice(newWords, currWord);
                 computerWord = choice[1];
                 currWord = currWord + choice[0];
                     if(wordList.includes(currWord)){
+                        hardModeButton.disabled = false;
                         gameUpdate.textContent = "You won the round! The computer spelled " + currWord;
                         currWord = '';
                         if(updateScore(1)) {

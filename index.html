@@ -23,14 +23,15 @@
     <!-- visible content goes here -->
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" style="margin-bottom: 10px">
                 <h1 class="title" id="title">G H O S T</h1>
-                <br>
             </div>
+        </div>
+        <div class="row">
             <div class="col-6">
                  <button type="button" class="btn btn-default" id="hard-mode">Hard Mode</button>
             </div>
-            <div class="col-6">
+            <div class="col-6" style="margin-top: 0;">
                 <!-- Trigger the Modal -->
                 <h3><a id="howToPlay" data-toggle="modal" data-target="#instructions">HOW TO PLAY</a></h3>
             </div>
@@ -121,6 +122,10 @@
                         </li>
                         <li>
                             If the letter you choose creates a word that is not found in our dictionary, then you will have to enter a different letter.
+                        </li>
+                        <li>
+                            If you toggle Hard Mode, the computer will always try to spell a word that will make you lose. In addition, you only have 30 seconds
+                            instead of 60.
                         </li>
                     </ul>
                   </p>
